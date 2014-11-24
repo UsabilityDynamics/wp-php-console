@@ -262,11 +262,15 @@ class WP_PHP_Console {
 		if ( ! $password )
 			return;
 
-		$connector = PhpConsole\Connector::getInstance();
+    if( !class_exists( 'Phpconsole\Connector' ) ) {
+      return;
+    }
+    
+		$connector = Phpconsole\Connector::getInstance();
 		$connector->setPassword( $password );
 
-		$handler = PhpConsole\Handler::getInstance();
-		if ( PhpConsole\Handler::getInstance()->isStarted() != true )
+		$handler = Phpconsole\Handler::getInstance();
+		if ( Phpconsole\Handler::getInstance()->isStarted() != true )
 			$handler->start();
 
 		$enableSslOnlyMode = isset( $options['ssl'] ) ? $options['ssl'] : '';
