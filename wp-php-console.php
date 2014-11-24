@@ -25,14 +25,15 @@ if ( ! defined( 'WPINC' ) ) die;
  * @link https://github.com/barbushin/php-console
  * Copyright (c) 2011-2013 by Barbushin Sergey <barbushin@gmail.com>.
  */
-require_once plugin_dir_path( __FILE__ ) . 'lib/php-console/src/PhpConsole/__autoload.php';
+if( file_exists( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' ) && !class_exists( 'Phpconsole\Config' ) ) {
+  include_once( plugin_dir_path( __FILE__ ) . 'vendor/autoload.php' );
+}
 
-/**
- * The main class of this plugin.
- */
-require_once plugin_dir_path( __FILE__ ) . 'lib/class-wp-php-console.php';
+if( class_exists( 'Phpconsole\Config' ) && class_exists( 'WP_PHP_Console' ) ) {
 
-/**
- * Instantiate this plugin.
- */
-$WP_PHP_Console = new WP_PHP_Console();
+  /**
+   * Instantiate this plugin.
+   */
+  $WP_PHP_Console = new WP_PHP_Console();
+
+}
